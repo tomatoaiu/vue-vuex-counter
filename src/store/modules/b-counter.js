@@ -8,28 +8,29 @@ const state = {
 }
 
 const actions = {
-    incrementb: ({commit}) => {
-        commit("INCREMENTB")
+    increment: ({commit}) => {
+        commit("INCREMENT")
     },
-    decrementb: ({commit}) => {
-        commit("DECREMENTB")
+    decrement: ({commit}) => {
+        commit("DECREMENT")
     },
 }
 
 const mutations = {
-    INCREMENTB(state) {
+    INCREMENT(state) {
         state.count++
     },
-    DECREMENTB(state) {
+    DECREMENT(state) {
         state.count--
     }
 }
 
 const getters = {
-    countB: state => state.count,
+    count: state => state.count,
 }
 
 export default {
+    namespaced: true,
     state,
     getters,
     actions,

@@ -1,28 +1,26 @@
 <template>
   <div>
-    B : {{countB}}
-    <button @click="incrementb()">+</button>
-    <button @click="decrementb()">-</button>
+    B : {{count}}
+    <button @click="increment()">+</button>
+    <button @click="decrement()">-</button>
   </div>
 </template>
 
 <script>
-import { mapGetters } from "vuex"
+import { mapGetters, mapActions } from "vuex"
 
 export default {
     name: "b-counter",
     computed: {
-        ...mapGetters({
-            countB : "countB"
-        })
+        ...mapGetters("b", [
+            "count"
+        ])
     },
     methods: {
-        incrementb(){
-            this.$store.dispatch("incrementb");
-        },
-        decrementb(){
-            this.$store.dispatch("decrementb");
-        }
+        ...mapActions("b",[
+            "increment",
+            "decrement"
+        ])
     }
 
 }
