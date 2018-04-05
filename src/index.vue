@@ -1,18 +1,16 @@
 <template>
 <div>
-    <counterA></counterA>
-    <counterB></counterB>
+    <counter></counter>
 </div>
 </template>
 
 <script>
-import counterA from './components/a-counter'
-import counterB from './components/b-counter'
+import counter from './components/counter/counter'
 
 export default {
+    name: "App",
     components: {
-        "counterA" : counterA,
-        "counterB" : counterB
+        "counter" : counter
     }
 }
 </script>
