@@ -1,9 +1,9 @@
-# Vue-Parcel-Pack
+# Vue-Vuex-Counter
 
 ## Usage
 ```
-git clone https://github.com/tomatoaiu/vue-parcel-pack.git
-cd vue-parcel-pack
+git clone https://github.com/tomatoaiu/vue-vuex-counter.git
+cd vue-vuex-counter
 npm i
-npm run start //access http://localhost:1234
+npm run start         #access http://localhost:1234
 ```
