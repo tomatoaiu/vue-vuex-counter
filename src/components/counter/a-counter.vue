@@ -9,7 +9,8 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex"
+import { createNamespacedHelpers } from 'vuex'
+const { mapGetters, mapActions } = createNamespacedHelpers("a")
 
 export default {
     name: "a-counter",
@@ -19,12 +20,12 @@ export default {
         }
     },
     computed: {
-        ...mapGetters("a", [
+        ...mapGetters([
             "count"
         ])
     },
     methods: {
-        ...mapActions("a",[
+        ...mapActions([
             "increment",
             "decrement",
             "setCount"

@@ -7,17 +7,18 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from "vuex"
+import { createNamespacedHelpers } from 'vuex'
+const { mapGetters, mapActions } = createNamespacedHelpers("b")
 
 export default {
     name: "b-counter",
     computed: {
-        ...mapGetters("b", [
+        ...mapGetters([
             "count"
         ])
     },
     methods: {
-        ...mapActions("b",[
+        ...mapActions([
             "increment",
             "decrement"
         ])
