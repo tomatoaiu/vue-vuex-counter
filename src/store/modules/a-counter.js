@@ -14,6 +14,10 @@ const actions = {
     decrement: ({commit}) => {
         commit("DECREMENT")
     },
+    setCount: ({commit}, payload) => {
+        console.log("count",payload)
+        commit("SET_COUNT", payload)
+    }
 }
 
 const mutations = {
@@ -22,6 +26,10 @@ const mutations = {
     },
     DECREMENT(state) {
         state.count--
+    },
+    SET_COUNT(state, payload) {
+        console.log("payload",payload)
+        state.count = payload.count
     }
 }
 
