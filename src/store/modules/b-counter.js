@@ -8,12 +8,13 @@ const state = {
 }
 
 const actions = {
-    increment: ({commit}) => {
+    increment({commit}){
         commit("INCREMENT")
     },
-    decrement: ({commit}) => {
+    decrement({commit}){
         commit("DECREMENT")
     },
+
 }
 
 const mutations = {
