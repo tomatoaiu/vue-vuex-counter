@@ -14,6 +14,10 @@ const actions = {
     decrement({commit}){
         commit("DECREMENT")
     },
+    async asyncIncrement({commit}){
+        await new Promise(resolve => setTimeout(resolve, 2000))
+        commit("INCREMENT")
+    }
 
 }
 

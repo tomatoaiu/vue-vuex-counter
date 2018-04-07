@@ -3,6 +3,7 @@
     B : {{count}}
     <button @click="increment()">+</button>
     <button @click="decrement()">-</button>
+    <button @click="asyncIncrement()">async +</button>
   </div>
 </template>
 
@@ -20,7 +21,8 @@ export default {
     methods: {
         ...mapActions([
             "increment",
-            "decrement"
+            "decrement",
+            "asyncIncrement"
         ])
     }
 
