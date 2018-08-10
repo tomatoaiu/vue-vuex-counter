@@ -5,10 +5,11 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "parcel index.html"
+    "start": "parcel index.html",
+    "deploy:github": "parcel index.html -d ./docs"
   },
   "keywords": [],
-  "author": "",
+  "author": "Shunsuke Toba",
   "license": "MIT",
   "dependencies": {
     "vue": "^2.5.17",
