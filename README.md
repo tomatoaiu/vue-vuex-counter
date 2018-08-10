@@ -9,5 +9,5 @@ npm i
 npm run start         #access http://localhost:1234
 # use yarn
 yarn
-yarn run start        #access http://localhost:1234
+yarn start            #access http://localhost:1234
 ```

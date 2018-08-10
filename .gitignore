@@ -1,6 +1,9 @@
+# node.js
 node_modules
+
+# parcel
 .cache
-.vscode
 dist
-package-lock.json
-yarn.lock
+
+# visual studio code
+.vscode

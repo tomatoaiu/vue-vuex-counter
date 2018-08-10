@@ -1,23 +1,20 @@
 <template>
-<div>
+  <div>
     <counter></counter>
-</div>
+  </div>
 </template>
 
 <script>
 import counter from './components/counter/counter'
 
 export default {
-    name: "App",
-    components: {
-        "counter" : counter
-    }
+  name: "App",
+  components: {
+    "counter" : counter
+  }
 }
 </script>
 
 <style scoped>
 
 </style>
-
-
-

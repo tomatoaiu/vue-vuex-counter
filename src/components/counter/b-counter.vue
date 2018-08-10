@@ -8,23 +8,16 @@
 </template>
 
 <script>
-import { createNamespacedHelpers } from 'vuex'
+import { createNamespacedHelpers } from "vuex"
 const { mapGetters, mapActions } = createNamespacedHelpers("b")
 
 export default {
-    name: "b-counter",
-    computed: {
-        ...mapGetters([
-            "count"
-        ])
-    },
-    methods: {
-        ...mapActions([
-            "increment",
-            "decrement",
-            "asyncIncrement"
-        ])
-    }
-
+  name: "b-counter",
+  computed: {
+    ...mapGetters(["count"])
+  },
+  methods: {
+    ...mapActions(["increment", "decrement", "asyncIncrement"])
+  }
 }
 </script>

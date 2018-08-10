@@ -6,15 +6,15 @@
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions } from "vuex"
 
 export default {
-    name: "view-counter",
-    computed: {
-        ...mapGetters({
-            countA: "a/count",
-            countB: "b/count"
-        })
-    }
-}
+  name: "view-counter",
+  computed: {
+    ...mapGetters({
+      countA: "a/count",
+      countB: "b/count"
+    })
+  }
+};
 </script>
