@@ -11397,7 +11397,68 @@ exports.default = _assign2.default || function (target) {
 
   return target;
 };
-},{"../core-js/object/assign":"node_modules/babel-runtime/core-js/object/assign.js"}],"node_modules/vue-hot-reload-api/dist/index.js":[function(require,module,exports) {
+},{"../core-js/object/assign":"node_modules/babel-runtime/core-js/object/assign.js"}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
+var bundleURL = null;
+function getBundleURLCached() {
+  if (!bundleURL) {
+    bundleURL = getBundleURL();
+  }
+
+  return bundleURL;
+}
+
+function getBundleURL() {
+  // Attempt to find the URL of the current script and use that as the base URL
+  try {
+    throw new Error();
+  } catch (err) {
+    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
+    if (matches) {
+      return getBaseURL(matches[0]);
+    }
+  }
+
+  return '/';
+}
+
+function getBaseURL(url) {
+  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
+}
+
+exports.getBundleURL = getBundleURLCached;
+exports.getBaseURL = getBaseURL;
+},{}],"node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
+var bundle = require('./bundle-url');
+
+function updateLink(link) {
+  var newLink = link.cloneNode();
+  newLink.onload = function () {
+    link.remove();
+  };
+  newLink.href = link.href.split('?')[0] + '?' + Date.now();
+  link.parentNode.insertBefore(newLink, link.nextSibling);
+}
+
+var cssTimeout = null;
+function reloadCSS() {
+  if (cssTimeout) {
+    return;
+  }
+
+  cssTimeout = setTimeout(function () {
+    var links = document.querySelectorAll('link[rel="stylesheet"]');
+    for (var i = 0; i < links.length; i++) {
+      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
+        updateLink(links[i]);
+      }
+    }
+
+    cssTimeout = null;
+  }, 50);
+}
+
+module.exports = reloadCSS;
+},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"node_modules/vue-hot-reload-api/dist/index.js":[function(require,module,exports) {
 var Vue // late bind
 var version
 var map = (window.__VUE_HOT_MAP__ = Object.create(null))
@@ -18957,7 +19018,7 @@ exports.default = {
   },
 
   computed: (0, _extends3.default)({}, mapGetters(["count"])),
-  methods: (0, _extends3.default)({}, mapActions(["increment", "decrement", "setCount"]))
+  methods: (0, _extends3.default)({}, mapActions(["increment", "decrement", "set"]))
 };
         var $75fc08 = exports.default || module.exports;
       
@@ -18971,8 +19032,9 @@ exports.default = {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._v("\n  A : " + _vm._s(_vm.count) + "\n  "),
+  return _c("section", [
+    _c("p", [_vm._v("A")]),
+    _vm._v(" "),
     _c(
       "button",
       {
@@ -19027,7 +19089,7 @@ exports.default = {
       {
         on: {
           click: function($event) {
-            _vm.setCount({ count: _vm.inputCount })
+            _vm.set({ count: parseInt(_vm.inputCount) })
           }
         }
       },
@@ -19042,7 +19104,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: null,
+            _scopeId: "data-v-75fc08",
             functional: undefined
           };
         })());
@@ -19062,9 +19124,13 @@ render._withStripped = true
         }
 
         
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
       }
     })();
-},{"babel-runtime/helpers/extends":"node_modules/babel-runtime/helpers/extends.js","vuex":"node_modules/vuex/dist/vuex.esm.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/counter/b-counter.vue":[function(require,module,exports) {
+},{"babel-runtime/helpers/extends":"node_modules/babel-runtime/helpers/extends.js","vuex":"node_modules/vuex/dist/vuex.esm.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/counter/b-counter.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19108,8 +19174,9 @@ exports.default = {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._v("\n  B : " + _vm._s(_vm.count) + "\n  "),
+  return _c("section", [
+    _c("p", [_vm._v("B")]),
+    _vm._v(" "),
     _c(
       "button",
       {
@@ -19154,7 +19221,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: null,
+            _scopeId: "data-v-9e984b",
             functional: undefined
           };
         })());
@@ -19174,9 +19241,13 @@ render._withStripped = true
         }
 
         
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
       }
     })();
-},{"babel-runtime/helpers/extends":"node_modules/babel-runtime/helpers/extends.js","vuex":"node_modules/vuex/dist/vuex.esm.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/counter/view-counter.vue":[function(require,module,exports) {
+},{"babel-runtime/helpers/extends":"node_modules/babel-runtime/helpers/extends.js","vuex":"node_modules/vuex/dist/vuex.esm.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/counter/view-counter.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19216,10 +19287,10 @@ exports.default = {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
-    _vm._v(
-      "\n  A : " + _vm._s(_vm.countA) + " \n  B : " + _vm._s(_vm.countB) + "\n"
-    )
+  return _c("section", [
+    _c("p", { staticClass: "count-a" }, [_vm._v("A: " + _vm._s(_vm.countA))]),
+    _vm._v(" "),
+    _c("p", { staticClass: "count-b" }, [_vm._v("B: " + _vm._s(_vm.countB))])
   ])
 }
 var staticRenderFns = []
@@ -19229,7 +19300,7 @@ render._withStripped = true
             render: render,
             staticRenderFns: staticRenderFns,
             _compiled: true,
-            _scopeId: null,
+            _scopeId: "data-v-fe0c5e",
             functional: undefined
           };
         })());
@@ -19249,70 +19320,13 @@ render._withStripped = true
         }
 
         
+        var reloadCSS = require('_css_loader');
+        module.hot.dispose(reloadCSS);
+        module.hot.accept(reloadCSS);
+      
       }
     })();
-},{"babel-runtime/helpers/extends":"node_modules/babel-runtime/helpers/extends.js","vuex":"node_modules/vuex/dist/vuex.esm.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/parcel-bundler/src/builtins/bundle-url.js":[function(require,module,exports) {
-var bundleURL = null;
-function getBundleURLCached() {
-  if (!bundleURL) {
-    bundleURL = getBundleURL();
-  }
-
-  return bundleURL;
-}
-
-function getBundleURL() {
-  // Attempt to find the URL of the current script and use that as the base URL
-  try {
-    throw new Error();
-  } catch (err) {
-    var matches = ('' + err.stack).match(/(https?|file|ftp):\/\/[^)\n]+/g);
-    if (matches) {
-      return getBaseURL(matches[0]);
-    }
-  }
-
-  return '/';
-}
-
-function getBaseURL(url) {
-  return ('' + url).replace(/^((?:https?|file|ftp):\/\/.+)\/[^/]+$/, '$1') + '/';
-}
-
-exports.getBundleURL = getBundleURLCached;
-exports.getBaseURL = getBaseURL;
-},{}],"node_modules/parcel-bundler/src/builtins/css-loader.js":[function(require,module,exports) {
-var bundle = require('./bundle-url');
-
-function updateLink(link) {
-  var newLink = link.cloneNode();
-  newLink.onload = function () {
-    link.remove();
-  };
-  newLink.href = link.href.split('?')[0] + '?' + Date.now();
-  link.parentNode.insertBefore(newLink, link.nextSibling);
-}
-
-var cssTimeout = null;
-function reloadCSS() {
-  if (cssTimeout) {
-    return;
-  }
-
-  cssTimeout = setTimeout(function () {
-    var links = document.querySelectorAll('link[rel="stylesheet"]');
-    for (var i = 0; i < links.length; i++) {
-      if (bundle.getBaseURL(links[i].href) === bundle.getBundleURL()) {
-        updateLink(links[i]);
-      }
-    }
-
-    cssTimeout = null;
-  }, 50);
-}
-
-module.exports = reloadCSS;
-},{"./bundle-url":"node_modules/parcel-bundler/src/builtins/bundle-url.js"}],"src/components/counter/counter.vue":[function(require,module,exports) {
+},{"babel-runtime/helpers/extends":"node_modules/babel-runtime/helpers/extends.js","vuex":"node_modules/vuex/dist/vuex.esm.js","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/components/counter/counter.vue":[function(require,module,exports) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -19361,13 +19375,13 @@ exports.default = {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c(
-    "div",
+    "main",
     [
+      _c("viewCounter"),
+      _vm._v(" "),
       _c("counterA"),
       _vm._v(" "),
-      _c("counterB"),
-      _vm._v(" "),
-      _c("viewCounter")
+      _c("counterB")
     ],
     1
   )
@@ -19476,7 +19490,76 @@ render._withStripped = true
       
       }
     })();
-},{"./components/counter/counter":"src/components/counter/counter.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"node_modules/regenerator-runtime/runtime.js":[function(require,module,exports) {
+},{"./components/counter/counter":"src/components/counter/counter.vue","_css_loader":"node_modules/parcel-bundler/src/builtins/css-loader.js","vue-hot-reload-api":"node_modules/vue-hot-reload-api/dist/index.js","vue":"node_modules/vue/dist/vue.runtime.esm.js"}],"src/store/modules/a-counter.js":[function(require,module,exports) {
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _vueEsm = require('vue/dist/vue.esm.js');
+
+var _vueEsm2 = _interopRequireDefault(_vueEsm);
+
+var _vuex = require('vuex');
+
+var _vuex2 = _interopRequireDefault(_vuex);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+_vueEsm2.default.use(_vuex2.default);
+
+var state = {
+  count: 0
+};
+
+var actions = {
+  increment: function increment(_ref) {
+    var commit = _ref.commit;
+
+    commit("INCREMENT");
+  },
+  decrement: function decrement(_ref2) {
+    var commit = _ref2.commit;
+
+    commit("DECREMENT");
+  },
+  set: function set(_ref3, _ref4) {
+    var commit = _ref3.commit;
+    var count = _ref4.count;
+
+    commit("SET", { count: count });
+  }
+};
+
+var mutations = {
+  INCREMENT: function INCREMENT(state) {
+    state.count++;
+  },
+  DECREMENT: function DECREMENT(state) {
+    state.count--;
+  },
+  SET: function SET(state, _ref5) {
+    var count = _ref5.count;
+
+    state.count = count;
+  }
+};
+
+var getters = {
+  count: function count(state) {
+    return state.count;
+  }
+};
+
+exports.default = {
+  namespaced: true,
+  state: state,
+  getters: getters,
+  actions: actions,
+  mutations: mutations
+};
+},{"vue/dist/vue.esm.js":"node_modules/vue/dist/vue.esm.js","vuex":"node_modules/vuex/dist/vuex.esm.js"}],"node_modules/regenerator-runtime/runtime.js":[function(require,module,exports) {
 var global = arguments[3];
 /**
  * Copyright (c) 2014-present, Facebook, Inc.
@@ -21303,102 +21386,7 @@ exports.default = function (fn) {
     });
   };
 };
-},{"../core-js/promise":"node_modules/babel-runtime/core-js/promise.js"}],"src/store/modules/a-counter.js":[function(require,module,exports) {
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _regenerator = require('babel-runtime/regenerator');
-
-var _regenerator2 = _interopRequireDefault(_regenerator);
-
-var _asyncToGenerator2 = require('babel-runtime/helpers/asyncToGenerator');
-
-var _asyncToGenerator3 = _interopRequireDefault(_asyncToGenerator2);
-
-var _vueEsm = require('vue/dist/vue.esm.js');
-
-var _vueEsm2 = _interopRequireDefault(_vueEsm);
-
-var _vuex = require('vuex');
-
-var _vuex2 = _interopRequireDefault(_vuex);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-_vueEsm2.default.use(_vuex2.default);
-
-var state = {
-  count: 0
-};
-
-var actions = {
-  increment: function increment(_ref) {
-    var commit = _ref.commit;
-
-    commit("INCREMENT");
-  },
-  decrement: function decrement(_ref2) {
-    var commit = _ref2.commit;
-
-    commit("DECREMENT");
-  },
-  asyncIncrement: function () {
-    var _ref4 = (0, _asyncToGenerator3.default)( /*#__PURE__*/_regenerator2.default.mark(function _callee(_ref3) {
-      var commit = _ref3.commit;
-      return _regenerator2.default.wrap(function _callee$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              _context.next = 2;
-              return new Promise(function (resolve) {
-                return setTimeout(resolve, 2000);
-              });
-
-            case 2:
-              commit("INCREMENT");
-
-            case 3:
-            case 'end':
-              return _context.stop();
-          }
-        }
-      }, _callee, this);
-    }));
-
-    function asyncIncrement(_x) {
-      return _ref4.apply(this, arguments);
-    }
-
-    return asyncIncrement;
-  }()
-};
-
-var mutations = {
-  INCREMENT: function INCREMENT(state) {
-    state.count++;
-  },
-  DECREMENT: function DECREMENT(state) {
-    state.count--;
-  }
-};
-
-var getters = {
-  count: function count(state) {
-    return state.count;
-  }
-};
-
-exports.default = {
-  namespaced: true,
-  state: state,
-  getters: getters,
-  actions: actions,
-  mutations: mutations
-};
-},{"babel-runtime/regenerator":"node_modules/babel-runtime/regenerator/index.js","babel-runtime/helpers/asyncToGenerator":"node_modules/babel-runtime/helpers/asyncToGenerator.js","vue/dist/vue.esm.js":"node_modules/vue/dist/vue.esm.js","vuex":"node_modules/vuex/dist/vuex.esm.js"}],"src/store/modules/b-counter.js":[function(require,module,exports) {
+},{"../core-js/promise":"node_modules/babel-runtime/core-js/promise.js"}],"src/store/modules/b-counter.js":[function(require,module,exports) {
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -21584,7 +21572,7 @@ var parent = module.bundle.parent;
 if ((!parent || !parent.isParcelRequire) && typeof WebSocket !== 'undefined') {
   var hostname = '' || location.hostname;
   var protocol = location.protocol === 'https:' ? 'wss' : 'ws';
-  var ws = new WebSocket(protocol + '://' + hostname + ':' + '52026' + '/');
+  var ws = new WebSocket(protocol + '://' + hostname + ':' + '60730' + '/');
   ws.onmessage = function (event) {
     var data = JSON.parse(event.data);
 
