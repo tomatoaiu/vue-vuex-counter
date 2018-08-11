@@ -14,9 +14,8 @@ const actions = {
   decrement ({ commit }) {
     commit("DECREMENT")
   },
-  async asyncIncrement ({ commit }) {
-    await new Promise(resolve => setTimeout(resolve, 2000))
-    commit("INCREMENT")
+  set ({ commit }, { count }) {
+    commit("SET", { count })
   }
 }
 
@@ -26,6 +25,9 @@ const mutations = {
   },
   DECREMENT(state) {
     state.count--
+  },
+  SET(state, { count }) {
+    state.count = count
   }
 }
 

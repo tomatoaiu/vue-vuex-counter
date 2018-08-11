@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <main>
+    <viewCounter></viewCounter>
     <counterA></counterA>
     <counterB></counterB>
-    <viewCounter></viewCounter>
-  </div>
+  </main>
 </template>
 
 <script>
@@ -22,5 +22,13 @@ export default {
 </script>
 
 <style scoped>
-
+main {
+  width: 100vw;
+  height: 100vh;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  flex-flow: column nowrap;
+}
 </style>
